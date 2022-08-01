@@ -19,7 +19,7 @@ builder.Services.AddStackExchangeRedisCache(opt =>
     opt.Configuration = redisSetting.Url;
 });
 
-builder.Services.AddAppServices();
+builder.Services.AddAppServices(config);
 
 var app = builder.Build();
 

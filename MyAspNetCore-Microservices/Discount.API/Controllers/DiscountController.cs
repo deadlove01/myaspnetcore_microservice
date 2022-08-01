@@ -1,6 +1,6 @@
 ﻿using System.Net;
-using Discount.API.Entities;
-using Discount.API.Repos;
+using Discount.Shared.Entities;
+using Discount.Shared.Repos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Discount.API.Controllers;

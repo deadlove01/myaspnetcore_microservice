@@ -1,6 +1,6 @@
-﻿using Discount.API.Entities;
+﻿using Discount.Shared.Entities;
 
-namespace Discount.API.Repos;
+namespace Discount.Shared.Repos;
 
 public interface IDiscountRepo
 {

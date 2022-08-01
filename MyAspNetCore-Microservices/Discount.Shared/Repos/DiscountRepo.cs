@@ -1,8 +1,9 @@
 ﻿using Dapper;
-using Discount.API.Entities;
+using Discount.Shared.Entities;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 
-namespace Discount.API.Repos;
+namespace Discount.Shared.Repos;
 
 public class DiscountRepo : IDiscountRepo
 {

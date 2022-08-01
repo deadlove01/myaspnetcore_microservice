@@ -1,6 +1,6 @@
 ﻿using Discount.Shared.Repos;
 
-namespace Discount.API.Configs;
+namespace Discount.Grpc.Configs;
 
 public static class AppServicesSetup
 {
