@@ -9,7 +9,7 @@ namespace Order.Infrastructure;
 
 public static class OrderInfraSetup
 {
-    public static IServiceCollection AddOrderServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddOrderInfraService(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<OrderContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString("OrderConnectionString")));
