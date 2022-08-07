@@ -22,7 +22,7 @@ services:
       - POSTGRES_DB=DiscountDb
     restart: always
     ports:
-        - "5432:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
@@ -34,6 +34,8 @@ services:
     restart: always
     ports:
       - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
 
   portainer:
     container_name: portainer
@@ -94,3 +96,13 @@ services:
       - discountdb
     ports:
       - "8003:80"
+
+  order.api:
+    container_name: order.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=SwN12345678;"
+    depends_on:
+      - orderdb
+    ports:
+      - "8004:80"

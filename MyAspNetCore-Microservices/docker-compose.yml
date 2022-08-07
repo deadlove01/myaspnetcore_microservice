@@ -42,6 +42,12 @@ services:
     build:
       context: .
       dockerfile: Discount.Grpc/Dockerfile
+
+  order.api:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: Order.API/Dockerfile
       
   
 
@@ -50,3 +56,4 @@ volumes:
   portainer_data:
   postgres_data:
   pgadmin_data:
+  mssql_data:

@@ -17,6 +17,7 @@ builder.Services.AddOrderApplicationService(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
+
 app.MigrateDatabase<OrderContext>((context, services) =>
 {
     var logger = services.GetService<ILogger<OrderContextSeed>>();
