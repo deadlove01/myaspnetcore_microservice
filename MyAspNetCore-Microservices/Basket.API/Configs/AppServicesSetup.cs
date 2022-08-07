@@ -1,6 +1,7 @@
 ﻿using Basket.API.GrpcServices;
 using Basket.API.Repository;
 using Discount.Grpc.Protos;
+using EventBus.Messages.Config;
 using MassTransit;
 
 namespace Basket.API.Configs;
@@ -23,19 +24,8 @@ public static class AppServicesSetup
             opt.Address = new Uri(grpcSetting.Url);
         });
 
-        var eventBusSetting = new EventBusSetting();
-        configuration.GetSection("EventBusSettings").Bind(eventBusSetting);
+        services.AddPublisherServices(configuration);
 
-        services.AddMassTransit(config =>
-        {
-            config.UsingRabbitMq((ctx, cfg) =>
-            {
-                cfg.Host(eventBusSetting.HostAddress);
-            });
-        });
-        
-        services.AddMassTransitHostedService();
-        
         services.AddScoped<IDiscountService, DiscountService>();
         
         return services;

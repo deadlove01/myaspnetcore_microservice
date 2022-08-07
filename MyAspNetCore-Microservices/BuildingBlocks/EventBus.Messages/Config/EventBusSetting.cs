@@ -1,4 +1,4 @@
-﻿namespace Basket.API.Configs;
+﻿namespace EventBus.Messages.Config;
 
 public class EventBusSetting
 {

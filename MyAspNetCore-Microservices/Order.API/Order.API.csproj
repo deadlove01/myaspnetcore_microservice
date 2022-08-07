@@ -5,24 +5,24 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>0d0aefb9-1adb-4b71-bc56-dd448801163d</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MassTransit" Version="7.3.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
         <PackageReference Include="Polly" Version="7.2.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj" />
       <ProjectReference Include="..\Order.Application\Order.Application.csproj" />
       <ProjectReference Include="..\Order.Infrastructure\Order.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Configs" />
     </ItemGroup>
 
 </Project>

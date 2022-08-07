@@ -1,3 +1,4 @@
+using Order.API.Configs;
 using Order.API.Extensions;
 using Order.Application;
 using Order.Infrastructure;
@@ -12,9 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 builder.Services.AddOrderInfraService(builder.Configuration);
 builder.Services.AddOrderApplicationService(builder.Configuration);
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAppServices(builder.Configuration);
 
 var app = builder.Build();
 

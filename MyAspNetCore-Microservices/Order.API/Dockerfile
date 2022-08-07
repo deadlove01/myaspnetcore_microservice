@@ -1,4 +1,6 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -6,9 +8,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Order.API/Order.API.csproj", "Order.API/"]
+COPY ["BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj", "BuildingBlocks/EventBus.Messages/"]
+COPY ["Order.Infrastructure/Order.Infrastructure.csproj", "Order.Infrastructure/"]
 COPY ["Order.Application/Order.Application.csproj", "Order.Application/"]
 COPY ["Order.Domain/Order.Domain.csproj", "Order.Domain/"]
-COPY ["Order.Infrastructure/Order.Infrastructure.csproj", "Order.Infrastructure/"]
 RUN dotnet restore "Order.API/Order.API.csproj"
 COPY . .
 WORKDIR "/src/Order.API"
