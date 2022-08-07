@@ -58,7 +58,3 @@ volumes:
   postgres_data:
   pgadmin_data:
   mssql_data:
-    
-networks:
-  rabbitmq_go_net:
-    driver: bridge
