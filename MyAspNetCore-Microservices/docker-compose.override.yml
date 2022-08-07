@@ -36,6 +36,13 @@ services:
       - "1433:1433"
     volumes:
       - mssql_data:/var/opt/mssql
+        
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   portainer:
     container_name: portainer
@@ -72,8 +79,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "RedisSetting:Url=basketdb:6379"
       - "GrpcSettings:Url=http://discount.grpc"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - basketdb
+      - rabbitmq
     ports:
       - "8001:80"
 
@@ -106,3 +115,5 @@ services:
       - orderdb
     ports:
       - "8004:80"
+
+
