@@ -51,6 +51,12 @@ services:
       
   rabbitmq:
     image: rabbitmq:3-management
+    
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    build:
+      context: .
+      dockerfile: Apigateways/OcelotApiGw/Dockerfile
 
 volumes:
   mongo_data:

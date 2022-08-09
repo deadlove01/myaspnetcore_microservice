@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Basket.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/[controller]")]
 public class BasketController : ControllerBase
 {
     private readonly IBasketRepo _repository;

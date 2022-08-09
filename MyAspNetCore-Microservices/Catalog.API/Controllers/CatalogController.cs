@@ -7,13 +7,13 @@ namespace Catalog.API.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class ProductController : ControllerBase
+public class CatalogController : ControllerBase
 {
     private readonly IProductRepo _repository;
-    private readonly ILogger<ProductController> _logger;
+    private readonly ILogger<CatalogController> _logger;
 
-    public ProductController(IProductRepo repository,
-        ILogger<ProductController> logger)
+    public CatalogController(IProductRepo repository,
+        ILogger<CatalogController> logger)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _logger = logger;
