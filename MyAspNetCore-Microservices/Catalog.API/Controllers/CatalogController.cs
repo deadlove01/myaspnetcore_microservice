@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Catalog.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/[controller]")]
 public class ProductController : ControllerBase
 {
     private readonly IProductRepo _repository;
