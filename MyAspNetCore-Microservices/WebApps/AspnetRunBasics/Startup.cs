@@ -1,3 +1,4 @@
+using AspnetRunBasics.Configs;
 using AspnetRunBasics.Data;
 using AspnetRunBasics.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +43,8 @@ namespace AspnetRunBasics
             services.AddScoped<IContactRepository, ContactRepository>();
 
             #endregion
+
+            services.AddAppServices(Configuration);
 
             services.AddRazorPages();
         }
