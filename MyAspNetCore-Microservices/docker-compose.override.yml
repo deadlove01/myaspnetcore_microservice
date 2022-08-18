@@ -151,6 +151,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ApiSettings:GatewayAddress=http://ocelotapigw"
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
     depends_on:
       - ocelotapigw
       - catalog.api
@@ -163,15 +164,14 @@ services:
   elasticsearch:
     container_name: elasticsearch
     environment:
-      - xpack.monitoring.collection.enabled=true
+      - xpack.monitoring.enabled=true
       - xpack.watcher.enabled=false
-      - xpack.security.enabled=false
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - discovery.type=single-node
     ports:
       - "9200:9200"
     volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
+      - elasticsearch-data:/usr/share/elasticsearch/data
   
   kibana:
     container_name: kibana

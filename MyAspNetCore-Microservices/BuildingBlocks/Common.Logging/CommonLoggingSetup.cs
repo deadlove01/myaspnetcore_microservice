@@ -10,7 +10,7 @@ public static class CommonLoggingSetup
     public static Action<HostBuilderContext, LoggerConfiguration> AddCommonLoggingConfigure =>
         (context, configuration) =>
         {
-            var elasticUrl = context.Configuration.GetValue<string>("ElasticConfiguration:Url");
+            var elasticUrl = context.Configuration.GetValue<string>("ElasticConfiguration:Uri");
             configuration.Enrich.FromLogContext()
                 .Enrich.WithMachineName()
                 .WriteTo.Debug()
