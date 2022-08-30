@@ -75,6 +75,12 @@ services:
     
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    
+  webstatus:
+    image: ${DOCKER_REGISTRY-}webstatus
+    build:
+      context: .
+      dockerfile: WebApps/WebStatus/Dockerfile  
 
 volumes:
   mongo_data:
