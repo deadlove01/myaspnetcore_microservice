@@ -1,4 +1,6 @@
 using Basket.API.Configs;
+using HealthChecks.UI.Client;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,13 +13,16 @@ builder.Services.AddSwaggerGen();
 
 var config = builder.Configuration;
 var redisSetting = new RedisSetting();
-var redisSettingConfig = config.GetSection("RedisSetting");
+var redisSettingConfig = config.GetSection("CacheSettings");
 redisSettingConfig.Bind(redisSetting);
 
 builder.Services.AddStackExchangeRedisCache(opt =>
 {
-    opt.Configuration = redisSetting.Url;
+    opt.Configuration = redisSetting.ConnectionString;
 });
+
+builder.Services.AddHealthChecks()
+    .AddRedis(config["CacheSettings:ConnectionString"], "Redis Health", HealthStatus.Degraded);        
 
 builder.Services.AddAppServices(config);
 
@@ -33,5 +38,11 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/hc", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+
+});
 
 app.Run();

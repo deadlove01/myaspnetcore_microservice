@@ -1,3 +1,5 @@
+using HealthChecks.UI.Client;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Shopping.Aggregator.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAppServices(builder.Configuration);
+var config = builder.Configuration;
+builder.Services.AddAppServices(config);
+builder.Services.AddHealthChecks()
+    .AddUrlGroup(new Uri($"{config["ApiSettings:CatalogUrl"]}/swagger/index.html"), "Catalog.API", HealthStatus.Degraded)
+    .AddUrlGroup(new Uri($"{config["ApiSettings:BasketUrl"]}/swagger/index.html"), "Basket.API", HealthStatus.Degraded)
+    .AddUrlGroup(new Uri($"{config["ApiSettings:OrderUrl"]}/swagger/index.html"), "Order.API", HealthStatus.Degraded);
 
 var app = builder.Build();
 
@@ -25,5 +32,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/hc", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+
+});
 
 app.Run();

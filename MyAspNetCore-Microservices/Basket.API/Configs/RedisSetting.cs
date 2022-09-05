@@ -2,5 +2,5 @@
 
 public class RedisSetting
 {
-    public string Url { get; set; }
+    public string ConnectionString { get; set; }
 }

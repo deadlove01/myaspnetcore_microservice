@@ -1,3 +1,4 @@
+using HealthChecks.UI.Client;
 using Order.API.Configs;
 using Order.API.Extensions;
 using Order.Application;
@@ -17,6 +18,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOrderInfraService(builder.Configuration);
 builder.Services.AddOrderApplicationService(builder.Configuration);
 builder.Services.AddAppServices(builder.Configuration);
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<OrderContext>();
 
 var app = builder.Build();
 
@@ -39,5 +42,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/hc", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+
+});
 
 app.Run();
